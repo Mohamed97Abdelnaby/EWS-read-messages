@@ -1,0 +1,131 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="GetEwsService" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mewd="clr-namespace:Microsoft.Exchange.WebServices.Data;assembly=Microsoft.Exchange.WebServices.NETStandard" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="EwsService" Type="OutArgument(mewd:ExchangeService)" />
+    <x:Property Name="UserMail" Type="InArgument(x:String)" />
+    <x:Property Name="Password" Type="InArgument(x:String)" />
+    <x:Property Name="TargetMail" Type="InArgument(x:String)" />
+    <x:Property Name="ExchangeVersion" Type="InArgument(mewd:ExchangeVersion)" />
+  </x:Members>
+  <sap2010:Annotation.AnnotationText>UPTF00000088eyI8SGVscExpbms+a19fQmFja2luZ0ZpZWxkIjpudWxsLCI8SW5pdGlhbFRvb2x0aXA+a19fQmFja2luZ0ZpZWxkIjpudWxsLCI8VmVyc2lvbj5rX19CYWNraW5nRmllbGQiOjF9</sap2010:Annotation.AnnotationText>
+  <sap2010:ExpressionActivityEditor.ExpressionActivityEditor>C#</sap2010:ExpressionActivityEditor.ExpressionActivityEditor>
+  <sap:VirtualizedContainerService.HintSize>806.4,875.2</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>Microsoft.Exchange.WebServices.Data</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Threading.Tasks</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>UiPath.Platform.ResourceHandling</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>Microsoft.ApplicationInsights</AssemblyReference>
+      <AssemblyReference>Microsoft.CSharp</AssemblyReference>
+      <AssemblyReference>Microsoft.Exchange.WebServices.NETStandard</AssemblyReference>
+      <AssemblyReference>Microsoft.Extensions.Configuration</AssemblyReference>
+      <AssemblyReference>Microsoft.Extensions.Configuration.Abstractions</AssemblyReference>
+      <AssemblyReference>Microsoft.Extensions.Configuration.Binder</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>netstandard</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Collections.Immutable</AssemblyReference>
+      <AssemblyReference>System.ComponentModel</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+      <AssemblyReference>System.Configuration.ConfigurationManager</AssemblyReference>
+      <AssemblyReference>System.Console</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.Common</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.Linq.Expressions</AssemblyReference>
+      <AssemblyReference>System.Linq.Parallel</AssemblyReference>
+      <AssemblyReference>System.Linq.Queryable</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>System.Private.DataContractSerialization</AssemblyReference>
+      <AssemblyReference>System.Private.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Private.Uri</AssemblyReference>
+      <AssemblyReference>System.Reflection.DispatchProxy</AssemblyReference>
+      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>System.Reflection.TypeExtensions</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Formatters</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Primitives</AssemblyReference>
+      <AssemblyReference>System.Security.Permissions</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.ServiceModel.Activities</AssemblyReference>
+      <AssemblyReference>System.Threading.Tasks.Parallel</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.Platform</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Constants</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.Workflow</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="Gets an EWS Service to be used further for any mail activities&#xA;&#xA;Inputs:&#xA;1) UserMail --&gt; The email to be used for logging in &quot;String&quot;&#xA;2) Password --&gt; The mail password &quot;String&quot;&#xA;3) TargetMail --&gt; The mail to be used for upcoming activities &quot;String&quot;&#xA;     Note --&gt; Both mails could be the same&#xA;4) ExchangeVersion --&gt; The version of exchange server to be used &quot;ExchangeVersion&quot;&#xA;&#xA;Outputs:&#xA;1) EwsService: The service to be used for upcoming activities &quot;ExchangeService&quot;&#xA;&#xA;Exceptions:&#xA;1) SystemException --&gt; Rethrown to the invoker" DisplayName="Get Ews Service" sap:VirtualizedContainerService.HintSize="449.6,810.4" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:LogMessage DisplayName="Getting Ews Service Started" sap:VirtualizedContainerService.HintSize="387.2,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_1">
+      <ui:LogMessage.Message>
+        <InArgument x:TypeArguments="x:Object">
+          <CSharpValue x:TypeArguments="x:Object" sap2010:WorkflowViewState.IdRef="CSharpValue`1_5">"Getting Ews Service in progress...."</CSharpValue>
+        </InArgument>
+      </ui:LogMessage.Message>
+    </ui:LogMessage>
+    <ui:InvokeCode ContinueOnError="{x:Null}" Code="bool RedirectionUrlValidationCallback(string redirectionUrl)&#xD;&#xA;    {&#xD;&#xA;        Uri redirectionUri = new Uri(redirectionUrl);&#xD;&#xA;        return redirectionUri.Scheme == &quot;https&quot;;&#xD;&#xA;    };&#xD;&#xA;&#xD;&#xA;    ExchangeService GetExchangeService(string userEmail, string userPassword, string targetEmail, ExchangeVersion EwsVersion)&#xD;&#xA;    {&#xD;&#xA;        try&#xD;&#xA;        {&#xD;&#xA;            ExchangeService service = new ExchangeService(EwsVersion);&#xD;&#xA;&#x9;&#x9;&#x9;Console.WriteLine(&quot;EWS service found&quot;);&#xD;&#xA;            service.Credentials = new WebCredentials(userEmail, userPassword);&#xD;&#xA;            service.TraceEnabled = true;&#xD;&#xA;            service.TraceFlags = TraceFlags.All;&#xD;&#xA;            service.AutodiscoverUrl(targetEmail, RedirectionUrlValidationCallback);&#xD;&#xA;&#x9;&#x9;&#x9;Console.WriteLine(&quot;Autodiscover service found&quot;);&#xD;&#xA;&#x9;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#x9;return service;&#xD;&#xA;        }&#xD;&#xA;        catch (Exception ex)&#xD;&#xA;        {&#xD;&#xA;            Console.WriteLine(&quot;An error occurred while getting EWS service: &quot; + ex.Message);&#xD;&#xA;&#x9;&#x9;&#x9;throw;&#xD;&#xA;        }&#xD;&#xA;    };&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;ResultService = null;&#xD;&#xA;&#x9;ResultService = GetExchangeService(UserMail, Password, TargetMail, ExchangeVersion);&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;&#xD;&#xA; " DisplayName="Get the EWS service" sap:VirtualizedContainerService.HintSize="387.2,164.8" sap2010:WorkflowViewState.IdRef="InvokeCode_1" Language="CSharp">
+      <ui:InvokeCode.Arguments>
+        <InArgument x:TypeArguments="x:String" x:Key="UserMail">
+          <CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_1">UserMail</CSharpValue>
+        </InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="Password">
+          <CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_2">Password</CSharpValue>
+        </InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="TargetMail">
+          <CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_3">TargetMail</CSharpValue>
+        </InArgument>
+        <OutArgument x:TypeArguments="mewd:ExchangeService" x:Key="ResultService">
+          <CSharpReference x:TypeArguments="mewd:ExchangeService" sap2010:WorkflowViewState.IdRef="CSharpReference`1_1">EwsService</CSharpReference>
+        </OutArgument>
+        <InArgument x:TypeArguments="mewd:ExchangeVersion" x:Key="ExchangeVersion">
+          <CSharpValue x:TypeArguments="mewd:ExchangeVersion" sap2010:WorkflowViewState.IdRef="CSharpValue`1_4">ExchangeVersion</CSharpValue>
+        </InArgument>
+      </ui:InvokeCode.Arguments>
+    </ui:InvokeCode>
+    <ui:LogMessage DisplayName="Getting Ews Service Success" sap:VirtualizedContainerService.HintSize="387.2,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_2">
+      <ui:LogMessage.Message>
+        <InArgument x:TypeArguments="x:Object">
+          <CSharpValue x:TypeArguments="x:Object" sap2010:WorkflowViewState.IdRef="CSharpValue`1_6">"Getting Ews Service in finished successfully"</CSharpValue>
+        </InArgument>
+      </ui:LogMessage.Message>
+    </ui:LogMessage>
+  </Sequence>
+</Activity>

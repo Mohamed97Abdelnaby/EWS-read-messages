@@ -1,0 +1,512 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="EwsInit" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mewd="clr-namespace:Microsoft.Exchange.WebServices.Data;assembly=Microsoft.Exchange.WebServices.NETStandard" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:sc="clr-namespace:System.Collections;assembly=System.Private.CoreLib" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:snm="clr-namespace:System.Net.Mail;assembly=System.Net.Mail" xmlns:str="clr-namespace:System.Text.RegularExpressions;assembly=System.Text.RegularExpressions" xmlns:stt="clr-namespace:System.Threading.Tasks;assembly=System.Private.CoreLib" xmlns:this="clr-namespace:" xmlns:uasa="clr-namespace:UiPath.Activities.System.Arrays;assembly=UiPath.System.Activities" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="UserMail" Type="InArgument(x:String)" />
+    <x:Property Name="Password" Type="InArgument(x:String)" />
+    <x:Property Name="TargetMail" Type="InArgument(x:String)" />
+    <x:Property Name="EwsVersion" Type="InArgument(mewd:ExchangeVersion)" />
+    <x:Property Name="FolderName" Type="InArgument(mewd:WellKnownFolderName)" />
+    <x:Property Name="NumberOfMails" Type="InArgument(x:Int32)" />
+    <x:Property Name="searchFilter" Type="InArgument(mewd:SearchFilter)" />
+    <x:Property Name="itemView" Type="InArgument(mewd:ItemView)" />
+    <x:Property Name="SortingDirection" Type="InArgument(mewd:SortDirection)" />
+    <x:Property Name="OutlookMailMessages" Type="OutArgument(scg:List(snm:MailMessage))" />
+    <x:Property Name="MarkMailsAsRead" Type="InArgument(x:Boolean)" />
+    <x:Property Name="EwsMailItems" Type="OutArgument(scg:List(mewd:Item))" />
+    <x:Property Name="SubjectRegex" Type="InArgument(str:Regex)" />
+    <x:Property Name="FilterBySubjectRegex" Type="InArgument(x:Boolean)" />
+  </x:Members>
+  <this:EwsInit.SortingDirection>
+    <InArgument x:TypeArguments="mewd:SortDirection">
+      <CSharpValue x:TypeArguments="mewd:SortDirection" sap2010:WorkflowViewState.IdRef="CSharpValue`1_43">SortDirection.Ascending</CSharpValue>
+    </InArgument>
+  </this:EwsInit.SortingDirection>
+  <sap2010:ExpressionActivityEditor.ExpressionActivityEditor>C#</sap2010:ExpressionActivityEditor.ExpressionActivityEditor>
+  <sap:VirtualizedContainerService.HintSize>806.4,3420.8</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>Microsoft.ApplicationInsights.Extensibility.Implementation.Experimental</x:String>
+      <x:String>Microsoft.Exchange.WebServices.Data</x:String>
+      <x:String>Microsoft.Extensions.Configuration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Runtime.Collections</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Text</x:String>
+      <x:String>System.Threading.Tasks</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath</x:String>
+      <x:String>UiPath.Activities.Presentation</x:String>
+      <x:String>UiPath.Activities.System.Arrays</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>UiPath.Platform.ResourceHandling</x:String>
+      <x:String>UiPath.Shared</x:String>
+      <x:String>UiPath.Shared.Activities</x:String>
+      <x:String>UiPath.Shared.Activities.Bindings</x:String>
+      <x:String>UiPath.Shared.Activities.Business</x:String>
+      <x:String>UiPath.Shared.Activities.ConnectionService.Contracts</x:String>
+      <x:String>UiPath.Shared.Activities.Design</x:String>
+      <x:String>UiPath.Shared.Activities.Design.Behaviors</x:String>
+      <x:String>UiPath.Shared.Activities.Design.Business</x:String>
+      <x:String>UiPath.Shared.Activities.Design.Controls</x:String>
+      <x:String>UiPath.Shared.Activities.Design.Converters</x:String>
+      <x:String>UiPath.Shared.Activities.Design.Extensions</x:String>
+      <x:String>UiPath.Shared.Activities.Design.Utils</x:String>
+      <x:String>UiPath.Shared.Activities.Services</x:String>
+      <x:String>UiPath.Shared.Activities.Services.Interfaces</x:String>
+      <x:String>UiPath.Shared.Localization</x:String>
+      <x:String>UiPath.Shared.RegexBuilder</x:String>
+      <x:String>UiPath.Shared.RegexBuilder.ViewModels</x:String>
+      <x:String>UiPath.Shared.Text</x:String>
+      <x:String>System.Text.RegularExpressions</x:String>
+      <x:String>UiPath.Activities.System.Collections</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>Microsoft.ApplicationInsights</AssemblyReference>
+      <AssemblyReference>Microsoft.CSharp</AssemblyReference>
+      <AssemblyReference>Microsoft.Exchange.WebServices.NETStandard</AssemblyReference>
+      <AssemblyReference>Microsoft.Extensions.Configuration</AssemblyReference>
+      <AssemblyReference>Microsoft.Extensions.Configuration.Abstractions</AssemblyReference>
+      <AssemblyReference>Microsoft.Extensions.Configuration.Binder</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>netstandard</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Collections</AssemblyReference>
+      <AssemblyReference>System.Collections.Immutable</AssemblyReference>
+      <AssemblyReference>System.ComponentModel</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+      <AssemblyReference>System.Configuration.ConfigurationManager</AssemblyReference>
+      <AssemblyReference>System.Console</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.Common</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.Linq.Expressions</AssemblyReference>
+      <AssemblyReference>System.Linq.Parallel</AssemblyReference>
+      <AssemblyReference>System.Linq.Queryable</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.Net.Mail</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>System.Private.DataContractSerialization</AssemblyReference>
+      <AssemblyReference>System.Private.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Private.Uri</AssemblyReference>
+      <AssemblyReference>System.Reflection.DispatchProxy</AssemblyReference>
+      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>System.Reflection.TypeExtensions</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Formatters</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Primitives</AssemblyReference>
+      <AssemblyReference>System.Security.Permissions</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.ServiceModel.Activities</AssemblyReference>
+      <AssemblyReference>System.Threading.Tasks.Parallel</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.Platform</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Constants</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.Workflow</AssemblyReference>
+      <AssemblyReference>System.Text.RegularExpressions</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <sap:WorkflowViewStateService.ViewState>
+    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+      <x:Boolean x:Key="ShouldCollapseAll">True</x:Boolean>
+    </scg:Dictionary>
+  </sap:WorkflowViewStateService.ViewState>
+  <Sequence DisplayName="Read mails main" sap:VirtualizedContainerService.HintSize="496,440" sap2010:WorkflowViewState.IdRef="Sequence_11">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsPinned">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <TryCatch DisplayName="Try Read mails" sap:VirtualizedContainerService.HintSize="433.6,328" sap2010:WorkflowViewState.IdRef="TryCatch_2">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsPinned">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <TryCatch.Try>
+        <Sequence DisplayName="EWS read mails" sap:VirtualizedContainerService.HintSize="449.6,83.2" sap2010:WorkflowViewState.IdRef="Sequence_1">
+          <Sequence.Variables>
+            <Variable x:TypeArguments="mewd:ExchangeService" Name="EwsService" />
+            <Variable x:TypeArguments="stt:Task(mewd:Folder)" Name="Folder" />
+            <Variable x:TypeArguments="stt:Task(mewd:FindItemsResults(mewd:Item))" Name="emailItems" />
+            <Variable x:TypeArguments="mewd:PropertySet" Name="properties" />
+            <Variable x:TypeArguments="x:Int32" Name="CurrentIndex" />
+          </Sequence.Variables>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="593.6,52.8" sap2010:WorkflowViewState.IdRef="LogMessage_1">
+            <ui:LogMessage.Message>
+              <InArgument x:TypeArguments="x:Object">
+                <CSharpValue x:TypeArguments="x:Object" sap2010:WorkflowViewState.IdRef="CSharpValue`1_1">"Getting the EWS service..."</CSharpValue>
+              </InArgument>
+            </ui:LogMessage.Message>
+          </ui:LogMessage>
+          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="" DisplayName="Get EWS service" sap:VirtualizedContainerService.HintSize="593.6,52.8" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Get Ews Service.xaml">
+            <ui:InvokeWorkflowFile.Arguments>
+              <OutArgument x:TypeArguments="mewd:ExchangeService" x:Key="EwsService">
+                <CSharpReference x:TypeArguments="mewd:ExchangeService" sap2010:WorkflowViewState.IdRef="CSharpReference`1_11">EwsService</CSharpReference>
+              </OutArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="UserMail">
+                <CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_32">UserMail</CSharpValue>
+              </InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="Password">
+                <CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_33">Password</CSharpValue>
+              </InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="TargetMail">
+                <CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_34">TargetMail</CSharpValue>
+              </InArgument>
+              <InArgument x:TypeArguments="mewd:ExchangeVersion" x:Key="ExchangeVersion">
+                <CSharpValue x:TypeArguments="mewd:ExchangeVersion" sap2010:WorkflowViewState.IdRef="CSharpValue`1_35">EwsVersion</CSharpValue>
+              </InArgument>
+            </ui:InvokeWorkflowFile.Arguments>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsAnnotationDocked">False</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </ui:InvokeWorkflowFile>
+          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Get mail folder" sap:VirtualizedContainerService.HintSize="593.6,52.8" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Get Mail Folder.xaml">
+            <ui:InvokeWorkflowFile.Arguments>
+              <InArgument x:TypeArguments="mewd:ExchangeService" x:Key="EwsService">
+                <CSharpValue x:TypeArguments="mewd:ExchangeService" sap2010:WorkflowViewState.IdRef="CSharpValue`1_31">EwsService</CSharpValue>
+              </InArgument>
+              <OutArgument x:TypeArguments="stt:Task(mewd:Folder)" x:Key="Folder">
+                <CSharpReference x:TypeArguments="stt:Task(mewd:Folder)" sap2010:WorkflowViewState.IdRef="CSharpReference`1_10">Folder</CSharpReference>
+              </OutArgument>
+              <InArgument x:TypeArguments="mewd:WellKnownFolderName" x:Key="FolderName">
+                <CSharpValue x:TypeArguments="mewd:WellKnownFolderName" sap2010:WorkflowViewState.IdRef="CSharpValue`1_30">FolderName</CSharpValue>
+              </InArgument>
+            </ui:InvokeWorkflowFile.Arguments>
+          </ui:InvokeWorkflowFile>
+          <Assign DisplayName="Make an itemview to specify number of  mails" sap:VirtualizedContainerService.HintSize="593.6,81.6" sap2010:WorkflowViewState.IdRef="Assign_3">
+            <Assign.To>
+              <OutArgument x:TypeArguments="mewd:ItemView">
+                <CSharpReference x:TypeArguments="mewd:ItemView" sap2010:WorkflowViewState.IdRef="CSharpReference`1_12">itemView</CSharpReference>
+              </OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="mewd:ItemView">
+                <CSharpValue x:TypeArguments="mewd:ItemView" sap2010:WorkflowViewState.IdRef="CSharpValue`1_36">new ItemView( NumberOfMails)</CSharpValue>
+              </InArgument>
+            </Assign.Value>
+          </Assign>
+          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Make Sorted By Date Item View" sap:VirtualizedContainerService.HintSize="593.6,52.8" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="Make Sorted By Date Item View.xaml">
+            <ui:InvokeWorkflowFile.Arguments>
+              <InArgument x:TypeArguments="mewd:ExchangeService" x:Key="EwsService">
+                <CSharpValue x:TypeArguments="mewd:ExchangeService" sap2010:WorkflowViewState.IdRef="CSharpValue`1_37">EwsService</CSharpValue>
+              </InArgument>
+              <InArgument x:TypeArguments="mewd:ItemView" x:Key="itemView">
+                <CSharpValue x:TypeArguments="mewd:ItemView" sap2010:WorkflowViewState.IdRef="CSharpValue`1_41">itemView</CSharpValue>
+              </InArgument>
+              <InArgument x:TypeArguments="mewd:SortDirection" x:Key="DirectionOfSorting">
+                <CSharpValue x:TypeArguments="mewd:SortDirection" sap2010:WorkflowViewState.IdRef="CSharpValue`1_42">SortingDirection</CSharpValue>
+              </InArgument>
+            </ui:InvokeWorkflowFile.Arguments>
+          </ui:InvokeWorkflowFile>
+          <Assign DisplayName="Assign mail items list" sap:VirtualizedContainerService.HintSize="593.6,81.6" sap2010:WorkflowViewState.IdRef="Assign_11">
+            <Assign.To>
+              <OutArgument x:TypeArguments="scg:List(mewd:Item)">
+                <CSharpReference x:TypeArguments="scg:List(mewd:Item)" sap2010:WorkflowViewState.IdRef="CSharpReference`1_21">EwsMailItems</CSharpReference>
+              </OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="scg:List(mewd:Item)">
+                <CSharpValue x:TypeArguments="scg:List(mewd:Item)" sap2010:WorkflowViewState.IdRef="CSharpValue`1_79">Folder.Result.FindItems(itemView).Result.ToList()</CSharpValue>
+              </InArgument>
+            </Assign.Value>
+          </Assign>
+          <If DisplayName="If filter by subject" sap:VirtualizedContainerService.HintSize="334.4,263.2" sap2010:WorkflowViewState.IdRef="If_4">
+            <If.Condition>
+              <InArgument x:TypeArguments="x:Boolean">
+                <CSharpValue x:TypeArguments="x:Boolean" sap2010:WorkflowViewState.IdRef="CSharpValue`1_98">FilterBySubjectRegex</CSharpValue>
+              </InArgument>
+            </If.Condition>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsPinned">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <If.Then>
+              <Sequence sap:VirtualizedContainerService.HintSize="300,80" sap2010:WorkflowViewState.IdRef="Sequence_26">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Filter ews mail items using subject regex" sap:VirtualizedContainerService.HintSize="378.4,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_7" UnSafe="False" WorkflowFileName="FilterEwsMailTemsUsingSubjectRegex.xaml">
+                  <ui:InvokeWorkflowFile.Arguments>
+                    <InOutArgument x:TypeArguments="scg:List(mewd:Item)" x:Key="EwsMailItems">
+                      <CSharpReference x:TypeArguments="scg:List(mewd:Item)" sap2010:WorkflowViewState.IdRef="CSharpReference`1_26">EwsMailItems</CSharpReference>
+                    </InOutArgument>
+                    <InArgument x:TypeArguments="str:Regex" x:Key="SubjectRegex">
+                      <CSharpValue x:TypeArguments="str:Regex" sap2010:WorkflowViewState.IdRef="CSharpValue`1_99">SubjectRegex</CSharpValue>
+                    </InArgument>
+                  </ui:InvokeWorkflowFile.Arguments>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </ui:InvokeWorkflowFile>
+              </Sequence>
+            </If.Then>
+            <If.Else>
+              <Sequence sap2010:WorkflowViewState.IdRef="Sequence_27" />
+            </If.Else>
+          </If>
+          <If DisplayName="If Mark mails as read" sap:VirtualizedContainerService.HintSize="593.6,52.8" sap2010:WorkflowViewState.IdRef="If_2">
+            <If.Condition>
+              <InArgument x:TypeArguments="x:Boolean">
+                <CSharpValue x:TypeArguments="x:Boolean" sap2010:WorkflowViewState.IdRef="CSharpValue`1_80">MarkMailsAsRead</CSharpValue>
+              </InArgument>
+            </If.Condition>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <If.Then>
+              <Sequence sap:VirtualizedContainerService.HintSize="300,80" sap2010:WorkflowViewState.IdRef="Sequence_21">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <Sequence DisplayName="Marking mails as read" sap:VirtualizedContainerService.HintSize="449.6,450.4" sap2010:WorkflowViewState.IdRef="Sequence_20">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="387.2,52.8" sap2010:WorkflowViewState.IdRef="LogMessage_11">
+                    <ui:LogMessage.Message>
+                      <InArgument x:TypeArguments="x:Object">
+                        <CSharpValue x:TypeArguments="x:Object" sap2010:WorkflowViewState.IdRef="CSharpValue`1_81">"Marking mails as read...."</CSharpValue>
+                      </InArgument>
+                    </ui:LogMessage.Message>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </ui:LogMessage>
+                  <ParallelForEach x:TypeArguments="mewd:EmailMessage" sap2010:Annotation.AnnotationText="1) Assign is read field as true&#xA;2) Invoke autoresolve function on the mail item " DisplayName="Parallel For Each Mail" sap:VirtualizedContainerService.HintSize="387.2,112.8" sap2010:WorkflowViewState.IdRef="ParallelForEach`1_1">
+                    <ParallelForEach.Values>
+                      <InArgument x:TypeArguments="scg:IEnumerable(mewd:EmailMessage)">
+                        <CSharpValue x:TypeArguments="scg:IEnumerable(mewd:EmailMessage)" sap2010:WorkflowViewState.IdRef="CSharpValue`1_84">EwsMailItems.OfType&lt;EmailMessage&gt;()</CSharpValue>
+                      </InArgument>
+                    </ParallelForEach.Values>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ActivityAction x:TypeArguments="mewd:EmailMessage">
+                      <ActivityAction.Argument>
+                        <DelegateInArgument x:TypeArguments="mewd:EmailMessage" Name="currentMailMessage" />
+                      </ActivityAction.Argument>
+                      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Mark mail as read" sap:VirtualizedContainerService.HintSize="333.6,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_5" UnSafe="False" WorkflowFileName="MarkMailAsRead.xaml">
+                        <ui:InvokeWorkflowFile.Arguments>
+                          <InArgument x:TypeArguments="mewd:EmailMessage" x:Key="EmailMessage">
+                            <CSharpValue x:TypeArguments="mewd:EmailMessage" sap2010:WorkflowViewState.IdRef="CSharpValue`1_86">currentMailMessage</CSharpValue>
+                          </InArgument>
+                        </ui:InvokeWorkflowFile.Arguments>
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                      </ui:InvokeWorkflowFile>
+                    </ActivityAction>
+                  </ParallelForEach>
+                  <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="387.2,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_12">
+                    <ui:LogMessage.Message>
+                      <InArgument x:TypeArguments="x:Object">
+                        <CSharpValue x:TypeArguments="x:Object" sap2010:WorkflowViewState.IdRef="CSharpValue`1_85">"Marking mails as read success"</CSharpValue>
+                      </InArgument>
+                    </ui:LogMessage.Message>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </ui:LogMessage>
+                </Sequence>
+              </Sequence>
+            </If.Then>
+            <If.Else>
+              <Sequence sap2010:WorkflowViewState.IdRef="Sequence_22" />
+            </If.Else>
+          </If>
+          <Assign DisplayName="Initialize list of outlook messages" sap:VirtualizedContainerService.HintSize="593.6,81.6" sap2010:WorkflowViewState.IdRef="Assign_6">
+            <Assign.To>
+              <OutArgument x:TypeArguments="scg:List(snm:MailMessage)">
+                <CSharpReference x:TypeArguments="scg:List(snm:MailMessage)" sap2010:WorkflowViewState.IdRef="CSharpReference`1_16">OutlookMailMessages</CSharpReference>
+              </OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="scg:List(snm:MailMessage)">
+                <CSharpValue x:TypeArguments="scg:List(snm:MailMessage)" sap2010:WorkflowViewState.IdRef="CSharpValue`1_54">new List&lt;System.Net.Mail.MailMessage&gt;()</CSharpValue>
+              </InArgument>
+            </Assign.Value>
+          </Assign>
+          <Sequence DisplayName="Convert ews mail messages to outlook mail messages" sap:VirtualizedContainerService.HintSize="593.6,997.6" sap2010:WorkflowViewState.IdRef="Sequence_14">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="531.2,52.8" sap2010:WorkflowViewState.IdRef="LogMessage_9">
+              <ui:LogMessage.Message>
+                <InArgument x:TypeArguments="x:Object">
+                  <CSharpValue x:TypeArguments="x:Object" sap2010:WorkflowViewState.IdRef="CSharpValue`1_59">"Mails conversion to outlook format started"</CSharpValue>
+                </InArgument>
+              </ui:LogMessage.Message>
+            </ui:LogMessage>
+            <ui:ForEach x:TypeArguments="mewd:EmailMessage" CurrentIndex="{x:Null}" sap2010:Annotation.AnnotationText="Convert it to net.mailmessage" DisplayName="For each Ews mail message" sap:VirtualizedContainerService.HintSize="531.2,700" sap2010:WorkflowViewState.IdRef="ForEach`1_5">
+              <ui:ForEach.Body>
+                <ActivityAction x:TypeArguments="mewd:EmailMessage">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="mewd:EmailMessage" Name="ewsMail" />
+                  </ActivityAction.Argument>
+                  <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="496,543.2" sap2010:WorkflowViewState.IdRef="Sequence_13">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <Assign DisplayName="Set wanted properties in the mail" sap:VirtualizedContainerService.HintSize="433.6,81.6" sap2010:WorkflowViewState.IdRef="Assign_7">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="mewd:PropertySet">
+                          <CSharpReference x:TypeArguments="mewd:PropertySet" sap2010:WorkflowViewState.IdRef="CSharpReference`1_17">properties</CSharpReference>
+                        </OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="mewd:PropertySet">
+                          <CSharpValue x:TypeArguments="mewd:PropertySet" sap2010:WorkflowViewState.IdRef="CSharpValue`1_64">new PropertySet(BasePropertySet.FirstClassProperties, EmailMessageSchema.Subject, EmailMessageSchema.Body, EmailMessageSchema.Sender)</CSharpValue>
+                        </InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <InvokeMethod DisplayName="Set the properties using the load function" sap:VirtualizedContainerService.HintSize="433.6,134.4" sap2010:WorkflowViewState.IdRef="InvokeMethod_2" MethodName="Load">
+                      <InvokeMethod.TargetObject>
+                        <InArgument x:TypeArguments="mewd:EmailMessage">
+                          <CSharpValue x:TypeArguments="mewd:EmailMessage" sap2010:WorkflowViewState.IdRef="CSharpValue`1_67">ewsMail</CSharpValue>
+                        </InArgument>
+                      </InvokeMethod.TargetObject>
+                      <InArgument x:TypeArguments="mewd:PropertySet">
+                        <CSharpValue x:TypeArguments="mewd:PropertySet" sap2010:WorkflowViewState.IdRef="CSharpValue`1_66">properties</CSharpValue>
+                      </InArgument>
+                    </InvokeMethod>
+                    <uasa:AppendItemToList x:TypeArguments="snm:MailMessage" ItemIndex="{x:Null}" DisplayName="Append new outlook mail message" sap:VirtualizedContainerService.HintSize="433.6,135.2" sap2010:WorkflowViewState.IdRef="AppendItemToList`1_2">
+                      <uasa:AppendItemToList.ItemToAppend>
+                        <InArgument x:TypeArguments="snm:MailMessage">
+                          <CSharpValue x:TypeArguments="snm:MailMessage" sap2010:WorkflowViewState.IdRef="CSharpValue`1_65">new MailMessage(ewsMail.From.Address,"Delta.Bot@cbe.org.eg" ,ewsMail.Subject,ewsMail.Body.Text)</CSharpValue>
+                        </InArgument>
+                      </uasa:AppendItemToList.ItemToAppend>
+                      <uasa:AppendItemToList.List>
+                        <InArgument x:TypeArguments="scg:IList(snm:MailMessage)">
+                          <CSharpValue x:TypeArguments="scg:IList(snm:MailMessage)" sap2010:WorkflowViewState.IdRef="CSharpValue`1_62">OutlookMailMessages</CSharpValue>
+                        </InArgument>
+                      </uasa:AppendItemToList.List>
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                    </uasa:AppendItemToList>
+                  </Sequence>
+                </ActivityAction>
+              </ui:ForEach.Body>
+              <ui:ForEach.Values>
+                <InArgument x:TypeArguments="sc:IEnumerable">
+                  <CSharpValue x:TypeArguments="sc:IEnumerable" sap2010:WorkflowViewState.IdRef="CSharpValue`1_60">EwsMailItems.OfType&lt;EmailMessage&gt;()</CSharpValue>
+                </InArgument>
+              </ui:ForEach.Values>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:ForEach>
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="531.2,52.8" sap2010:WorkflowViewState.IdRef="LogMessage_10">
+              <ui:LogMessage.Message>
+                <InArgument x:TypeArguments="x:Object">
+                  <CSharpValue x:TypeArguments="x:Object" sap2010:WorkflowViewState.IdRef="CSharpValue`1_63">"Mails converted to outlook format successfuly"</CSharpValue>
+                </InArgument>
+              </ui:LogMessage.Message>
+            </ui:LogMessage>
+          </Sequence>
+        </Sequence>
+      </TryCatch.Try>
+      <TryCatch.Catches>
+        <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="400,163.2" sap2010:WorkflowViewState.IdRef="Catch`1_2">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <x:Boolean x:Key="IsPinned">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ActivityAction x:TypeArguments="s:Exception">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+            </ActivityAction.Argument>
+            <ui:LogMessage DisplayName="Process failed" sap:VirtualizedContainerService.HintSize="333.6,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_6">
+              <ui:LogMessage.Message>
+                <InArgument x:TypeArguments="x:Object">
+                  <CSharpValue x:TypeArguments="x:Object" sap2010:WorkflowViewState.IdRef="CSharpValue`1_100">"Reading mails Failed with the following error: " + exception.Message</CSharpValue>
+                </InArgument>
+              </ui:LogMessage.Message>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:LogMessage>
+          </ActivityAction>
+        </Catch>
+      </TryCatch.Catches>
+    </TryCatch>
+  </Sequence>
+</Activity>
